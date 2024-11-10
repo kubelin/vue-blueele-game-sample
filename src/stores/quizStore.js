@@ -25,6 +25,8 @@ export const useQuizStore = defineStore('quiz', {
     score: 0,
     level: 1,
     requiredScore: 100,
+    isGameOver: false,
+    isQuizCompleted: false,
   }),
 
   getters: {
@@ -56,6 +58,14 @@ export const useQuizStore = defineStore('quiz', {
     // localStorage에 퀴즈 저장
     saveQuizzes() {
       localStorage.setItem('quizzes', JSON.stringify(this.quizzes))
+    },
+    endGame() {
+      this.isGameOver = true
+    },
+    resetGame() {
+      this.currentQuizIndex = 0
+      this.score = 0
+      this.isGameOver = false
     },
 
     // 기존 actions...
