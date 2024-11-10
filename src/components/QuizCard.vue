@@ -8,6 +8,16 @@ const quizStore = useQuizStore()
 const answered = ref(false)
 const correct = ref(false)
 
+// 선택된 답변인지 확인하는 함수
+const isSelected = (index) => {
+  return quizStore.selectedAnswer === index;
+};
+
+// 정답인지 확인하는 함수
+const isCorrect = (index) => {
+  return index === quizStore.quizzes[quizStore.currentQuizIndex].correctAnswer;
+};
+
 const selectAnswer = (index) => {
   answered.value = true
   correct.value = index === quizStore.quizzes[quizStore.currentQuizIndex].correctIndex
@@ -29,7 +39,7 @@ const nextQuestion = () => {
     <div class="flex items-center justify-between mb-8">
       <div class="flex items-center gap-4">
         <div class="bg-blue-100 p-3 rounded-full">
-          <Brain class="w-8 h-8 text-blue-500" />
+          <!-- <Brain class="w-8 h-8 text-blue-500" /> -->
         </div>
         <div>
           <h3 class="text-lg font-semibold text-gray-700">
@@ -51,16 +61,17 @@ const nextQuestion = () => {
           {{ quizStore.quizzes[quizStore.currentQuizIndex].question }}
         </h4>
       </div>
-
       <!-- 답변 옵션 -->
-      <div class="grid gap-3">
+      <div class="flex flex-col space-y-6">
         <button v-for="(option, index) in quizStore.quizzes[quizStore.currentQuizIndex].options" :key="index"
           @click="selectAnswer(index)" :disabled="answered"
-          class="p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center border-2">
-            {{ ['A', 'B', 'C', 'D'][index] }}
-          </div>
-          <span>{{ option }}</span>
+          class="answer-option p-6 text-lg font-medium rounded-2xl transition-all text-left block w-full" :class="{
+            'bg-white hover:bg-blue-50': !answered,
+            'bg-green-50': answered && isCorrect(index),
+            'bg-red-50': answered && isSelected(index) && !isCorrect(index),
+            'opacity-75': answered && !isSelected(index)
+          }">
+          {{ option }}
         </button>
       </div>
 
@@ -83,3 +94,53 @@ const nextQuestion = () => {
     </div>
   </div>
 </template>
+
+
+<style scoped>
+.answer-option {
+  border: 2.5px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.answer-option:hover:not(:disabled) {
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.answer-option:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* 정답일 때 */
+.answer-option.bg-green-50 {
+  border-color: #86efac;
+  box-shadow: 0 4px 6px -1px rgba(134, 239, 172, 0.3);
+}
+
+/* 오답일 때 */
+.answer-option.bg-red-50 {
+  border-color: #fca5a5;
+  box-shadow: 0 4px 6px -1px rgba(252, 165, 165, 0.3);
+}
+
+/* 추가 애니메이션 */
+@keyframes gentle-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.answer-option:hover:not(:disabled) {
+  animation: gentle-bounce 2s infinite;
+}
+</style>
