@@ -16,6 +16,19 @@ const initialQuizzes = [
     points: 20,
     level: 1,
   },
+  {
+    id: 2,
+    question: '친구가 따돌림을 다할때 가장 좋은 말은?',
+    options: [
+      '힘내!!!',
+      '그러길래 애들한테 잘 했어야지..',
+      '나랑 같이 놀자, 이리 와!',
+      '그냥 잊어버려',
+    ],
+    correctIndex: 2,
+    points: 20,
+    level: 1,
+  },
 ]
 
 export const useQuizStore = defineStore('quiz', {
@@ -24,7 +37,7 @@ export const useQuizStore = defineStore('quiz', {
     currentQuizIndex: 0,
     score: 0,
     level: 1,
-    requiredScore: 100,
+    requiredScore: 40,
     isGameOver: false,
     isQuizCompleted: false,
   }),
