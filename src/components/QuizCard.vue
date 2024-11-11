@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { ThumbsUp, EmojiFrown, EmojiSmile, RocketLaunch } from 'lucide-vue-next'  
+import { ThumbsUp, Smile, Frown, RocketLaunch } from 'lucide-vue-next'  
 import { useQuizStore } from '@/stores/quizStore'
 
 const quizStore = useQuizStore()
@@ -81,13 +81,13 @@ const nextQuestion = () => {
         
       <!-- 결과 메시지 -->  
       <div v-if="answered" class="flex flex-col items-center gap-4 mt-6">
-        <div class="flex items-center gap-2" 
-          :class="correct ? 'text-green-500' : 'text-red-500'">
-          <component :is="correct ? EmojiSmile : EmojiFrown" class="w-8 h-8" />
-          <span class="text-2xl font-bold">
-            {{ correct ? 'U Go Einstein!' : 'Oops, Try again' }}  
-          </span>
-        </div>
+      <div class="flex items-center gap-2" 
+        :class="correct ? 'text-green-500' : 'text-red-500'">
+        <component :is="correct ? Smile : Frown" class="w-8 h-8" />
+        <span class="text-2xl font-bold">
+          {{ correct ? 'U Go Einstein!' : 'Oops, Try again' }}  
+        </span>
+      </div>
         <button @click="nextQuestion" 
           class="px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 
                  text-white text-xl font-bold rounded-full transition-all hover:scale-105 hover:shadow-lg">
