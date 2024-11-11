@@ -4,7 +4,7 @@ export const useQuizStore = defineStore('quiz', {
   state: () => ({
     currentLevel: 1,
     score: 0,
-    requiredScore: 100,
+    requiredScore: 40,
     currentQuizIndex: 0,
   }),
 

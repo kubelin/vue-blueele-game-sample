@@ -78,6 +78,7 @@ export const useQuizStore = defineStore('quiz', {
     resetGame() {
       this.currentQuizIndex = 0
       this.score = 0
+      this.level = 0
       this.isGameOver = false
     },
 
@@ -105,7 +106,7 @@ export const useQuizStore = defineStore('quiz', {
     levelUp() {
       this.level++
       this.score = 0
-      this.requiredScore = this.level * 100
+      this.requiredScore = this.level * 40
     },
   },
 })
