@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { ThumbsUp, Smile, Frown, RocketLaunch } from 'lucide-vue-next'  
+import { ThumbsUp, Smile, Frown, ArrowRight } from 'lucide-vue-next'  
 import { useQuizStore } from '@/stores/quizStore'
 
 const quizStore = useQuizStore()
